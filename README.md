@@ -1,7 +1,7 @@
 # SmartSMSSolutions-API
 This is an unofficial API wwarapper written in php 5 oop style for consuming services offered by Smart SMS Solutions. This was developed for a cliient but i feel it'd serve the community good too.
 
-USAGE
+# USAGE
 
 Include the file in your project after downloading. 
 
@@ -14,7 +14,7 @@ $smartsms = new smartSMSSolutions('your Awesome Username','yourstr0ngpa$$word');
 now the object is created! - There are only two public methods. Thats sendMSG() and queryBalance(). There are a couple other private helper methods within the class.
 
 
-METHOD DETAILS
+# METHOD DETAILS
 All Data passed to the API endpoint is URLEncoded. There is no need to urlencode your data again.
 
 sendMSG();
@@ -59,7 +59,7 @@ $smartsms->errorMap($code);
       $code {string, Error Code eg. 2912}
 
 
-ISSUES?
+# ISSUES?
 
 Am sure there will be. I have checked as much as i can but if you find one i missed, please let me know. shoot me a mail about it. jcobhams@vyrenmedia.com
 
