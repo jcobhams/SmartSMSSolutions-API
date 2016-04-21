@@ -5,7 +5,7 @@
  * License: Apache 2.0
  * Author:  Joseph Cobhams
  * URL:     http://www.vyrenmedia.com
- * Version: 0.1a
+ * Version: 0.2a
  **********************************************************/
 class smartSMSSolutions
 {
@@ -18,8 +18,8 @@ class smartSMSSolutions
 	public function sendMSG($sender,$recpients,$message)
 	{
         $api_data_string='';
-        $api_data = array("username"=>urlencode($this->user), "password"=>urlencode($this->pass), "sender"=>urlencode($sender), "recipient"=>urlencode($recpients),  "message"=>urlencode($message) );
-        foreach($api_data as $k=>$v){$api_data_string.=$k.'='.$v.'&';} $api_data_string=rtrim($api_data_string,'&');
+        $api_data = array("username"=>urlencode($this->user), "password"=>urlencode($this->pass), "sender"=>urlencode($sender), "recipient"=>urlencode($recpients), "message"=>urlencode($message));
+        foreach($api_data as $k=>$v) {$api_data_string.= $k.'='.$v.'&';}$api_data_string=rtrim($api_data_string,'&');
         $url=$this->api_url.$api_data_string;
         $ch = curl_init($url); curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); curl_setopt($ch, CURLOPT_HEADER, 0);
         $result = curl_exec($ch); curl_close($ch);
@@ -40,8 +40,12 @@ class smartSMSSolutions
     private function handleResponse($response)
     {
         $resp_array = explode(" ",$response);
-        if(strtolower($resp_array[0])=='ok'){ return json_encode(array("status"=>"success", "message"=>"Total Units Used: ".$resp_array[1]." Numbers Failed: ".$resp_array[3]) ); }
-        if(is_numeric($resp_array[0])){return json_encode(array("state"=>"error","code"=>$resp_array[0],"message"=>$this->errorMap($resp_array[0])));}
+        if(strtolower($resp_array[0])=='ok')
+        {
+            if(!$resp_array[2]){$failed_numbers=0;}else{$failed_numbers=$resp_array[2];}
+            return json_encode(array("status"=>"success", "message"=>"Total Units Used: ".$resp_array[1]." Numbers Failed: ".$failed_numbers) );
+        }
+        if(is_numeric($resp_array[0])){return json_encode(array("status"=>"error","code"=>$resp_array[0],"message"=>$this->errorMap($resp_array[0])));}
     }
 
     private function errorMap($code)
