@@ -67,7 +67,7 @@ $smartsms->errorMap($code);
 
 ## ISSUES?
 
-Am sure there will be. I have checked as much as i can but if you find one i missed, please let me know. shoot me a mail about it. `jcobhams@vyrenmedia.com`
+Am sure there will be. I have checked as much as i can but if you find one i missed, please let me know.
 
 
 Enjoy!
